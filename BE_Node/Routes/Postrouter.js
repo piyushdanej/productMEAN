@@ -1,16 +1,24 @@
 var express = require('express');
 var postModel = require('../Models/Post')
 var router = express.Router();
+var bodyParser = require('body-parser');
 
-router.get('/save', function (req, res, next) {
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+router.post('/save',jsonParser, function (req, res, next) {
+    console.log(req);
     var post = new postModel({
-        title: "My Second POst",
-        body: "this is my second post",
-        author: "Piyush Danej",
+        title: req.body.title,
+        body: req.body.body,
+        author: req.body.author,
         date: new Date(),
         meta: {
-            votes: 0,
-            details: "none"
+            votes: req.body.meta.votes,
+            details: req.body.meta.details
         }
     });
     post.save().then(result => res.send("Post Saved"))

@@ -3,9 +3,15 @@ var mongoose = require('mongoose');
 // var Schema =new mongoose.Schema
 
 var postSchema = new mongoose.Schema({
-    title : String,
-    body : String,
-    author : String,
+    title : {
+        type : String,
+        required : true},
+    body : {
+        type : String,
+        required : true},
+    author : {
+        type : String,
+        required : true},
     date : Date,
     meta : {
         votes : Number,
